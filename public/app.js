@@ -68,7 +68,7 @@ function exportCsv() {
   const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'expenses.csv';
+  link.download = 'my-expenses.csv';
   link.click();
   URL.revokeObjectURL(url);
 }
