@@ -4,4 +4,4 @@ form { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 input, select, button { padding: 6px 8px; font: inherit; }
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 6px; border-bottom: 1px solid #ddd; }
-#export-btn { margin-bottom: 16px; }
+#export-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; }
