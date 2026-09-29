@@ -46,4 +46,26 @@ document.getElementById('expense-form').addEventListener('submit', (event) => {
   render();
 });
 
+function csvField(value) {
+  const text = String(value ?? '');
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function exportCsv() {
+  const rows = [['Date', 'Category', 'Amount', 'Description']];
+  for (const e of loadExpenses()) {
+    rows.push([e.date, e.category, e.amount.toFixed(2), e.description]);
+  }
+  const csv = rows.map((row) => row.map(csvField).join(',')).join('\r\n');
+
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'expenses.csv';
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('export-btn').addEventListener('click', exportCsv);
+
 render();
