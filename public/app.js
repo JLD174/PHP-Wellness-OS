@@ -51,10 +51,17 @@ function csvField(value) {
   return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
+// Spreadsheet apps run cells starting with these characters as formulas
+// (CSV injection). A leading apostrophe makes them plain text.
+function neutralizeFormula(value) {
+  const text = String(value ?? '');
+  return /^[=+\-@\t\r]/.test(text) ? `'${text}` : text;
+}
+
 function exportCsv() {
   const rows = [['Date', 'Category', 'Amount', 'Description']];
   for (const e of loadExpenses()) {
-    rows.push([e.date, e.category, e.amount.toFixed(2), e.description]);
+    rows.push([e.date, neutralizeFormula(e.category), e.amount.toFixed(2), neutralizeFormula(e.description)]);
   }
   const csv = rows.map((row) => row.map(csvField).join(',')).join('\r\n');
 
