@@ -9,7 +9,16 @@
 <body>
   <main>
     <h1>Expense Tracker</h1>
-    <button type="button" id="export-btn">Export Data</button>
+    <div id="export-bar">
+      <label>From <input type="date" id="export-from"></label>
+      <label>To <input type="date" id="export-to"></label>
+      <label>Category
+        <select id="export-category">
+          <option value="">All</option>
+        </select>
+      </label>
+      <button type="button" id="export-btn">Export Data</button>
+    </div>
 
     <form id="expense-form">
       <input type="date" id="date" required>
